@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "api": "apps/api",
+    "api-interfaces": "libs/api-interfaces",
+    "knights-fights": "apps/knights-fights",
+    "knights-fights-e2e": "apps/knights-fights-e2e"
+  }
+}
