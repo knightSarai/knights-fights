@@ -1,2 +1,9 @@
-# Test
-GET http://localhost:3333/api/hello
+### Create new user
+POST http://localhost:3333/api/auth/signup
+content-type: application/json
+
+{
+    "username": "knight",
+    "email": "knight.sarai.dev@gmail.com",
+    "password": "1234455"
+}
