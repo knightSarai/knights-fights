@@ -7,3 +7,6 @@ content-type: application/json
     "email": "knight.sarai.dev@gmail.com",
     "password": "1234455"
 }
+
+### Get User
+GET http://localhost:3333/api/auth/1

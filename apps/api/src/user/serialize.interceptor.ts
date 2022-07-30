@@ -22,6 +22,7 @@ export class SerializeInterceptor<T> {
         return plainToClass(this.dto, data, {
           excludeExtraneousValues: true,
         });
+
       })
     )
   }
