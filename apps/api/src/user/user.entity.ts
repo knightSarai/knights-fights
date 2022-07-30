@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, Unique} from 'typeorm';
 import { IsEmail, Length, IsDate } from 'class-validator';
 
 
@@ -7,7 +7,7 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({unique: true})
+  @Column()
   @Length(3)
   username: string;
 
@@ -24,7 +24,7 @@ export class User {
   isActive: boolean;
 
   @Column()
-  @IsDate()
+  @CreateDateColumn()
   created: Date
 }
 
