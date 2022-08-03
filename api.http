@@ -4,9 +4,20 @@ content-type: application/json
 
 {
     "username": "knight",
-    "email": "knight.sarai.dev@gmail.com",
-    "password": "1234455"
+    "email": "knight.sarai.de@gmail.com",
+    "password": "1234455...."
 }
 
+### Signin
+POST http://localhost:3333/api/auth/signin
+content-type: application/json
+
+{
+    "email": "knight.sarai.dev@gmail.com",
+    "password": "1234455...."
+}
+
+ 
 ### Get User
 GET http://localhost:3333/api/auth/1
+

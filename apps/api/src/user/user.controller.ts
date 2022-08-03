@@ -23,4 +23,10 @@ export class UserController {
     }
     return user;
   }
+
+  @Post('/signin')
+  async signIn(@Body() user: CreateUserDto) {
+    return await this.authService.signIn(user.email, user.password);
+  }
+
 }
