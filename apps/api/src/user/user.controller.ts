@@ -1,9 +1,9 @@
-import { Body, Controller, Param, Post, Get, NotFoundException} from '@nestjs/common';
+import { Body, Controller, Param, Post, Get, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { Serialize } from './serialize.interceptor'
+import { Serialize } from './interceptors/serialize.interceptor'
 import { UserService } from './user.service';
 
-import { UserDto } from './user.dto';
+import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth/auth.service';
 
 @Controller('auth')
