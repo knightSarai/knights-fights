@@ -1,10 +1,12 @@
-import { Body, Session, Controller, Param, Post, Get, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Body, Session, Controller, Post, Get, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
-import { Serialize } from './interceptors/serialize.interceptor'
+import { Serialize } from '../app/interceptors/serialize.interceptor';
 import { UserService } from './user.service';
 
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth/auth.service';
+import { User } from './user.entity';
+import { CurrentUser } from './decorators/user.decorator';
 
 @Controller('auth')
 @Serialize<UserDto>(UserDto)
@@ -13,7 +15,7 @@ export class UserController {
   @Post('/signup')
   async signUp(@Body() user: CreateUserDto, @Session() session: any) {
     const newUser =  await this.authService.signUp(user.username, user.password, user.email);
-    session.user = newUser.id;
+    session.userId = newUser.id;
     return newUser;
   }
 
@@ -21,21 +23,20 @@ export class UserController {
   @Post('/signin')
   async signIn(@Body() body: CreateUserDto, @Session() session: any) {
     const user =  await this.authService.signIn(body.email, body.password);
-    session.user = user.id;
+    session.userId = user.id;
     return user;
   }
 
   @Post('/signout')
   async signOut(@Session() session: any) {
-    session.user = null;
+    session.userId = null;
   }
 
   @Get('/me')
-  async me(@Session() session: any) {
-    if (!session.user) {
-      throw new NotFoundException('User not found');
+  async me(@CurrentUser() user: User) {
+    if (!user) {
+      throw new NotFoundException('No logged in user');
     }
-    return this.userService.findOne(session.user);
+    return user
   }
-
 }
