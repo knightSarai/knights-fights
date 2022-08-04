@@ -1,7 +1,6 @@
 import { Body, Session, Controller, Post, Get, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { Serialize } from '../app/interceptors/serialize.interceptor';
-import { UserService } from './user.service';
 
 import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth/auth.service';
@@ -11,7 +10,7 @@ import { CurrentUser } from './decorators/user.decorator';
 @Controller('auth')
 @Serialize<UserDto>(UserDto)
 export class UserController {
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
   @Post('/signup')
   async signUp(@Body() user: CreateUserDto, @Session() session: any) {
     const newUser =  await this.authService.signUp(user.username, user.password, user.email);
