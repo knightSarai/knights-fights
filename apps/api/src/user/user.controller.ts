@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, Get, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Body, Session, Controller, Param, Post, Get, NotFoundException, BadRequestException } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { Serialize } from './interceptors/serialize.interceptor'
 import { UserService } from './user.service';
@@ -11,22 +11,31 @@ import { AuthService } from './auth/auth.service';
 export class UserController {
   constructor(private userService: UserService, private authService: AuthService) {}
   @Post('/signup')
-  async createUser(@Body() user: CreateUserDto) {
-    return await this.authService.signUp(user.username, user.password, user.email);
+  async signUp(@Body() user: CreateUserDto, @Session() session: any) {
+    const newUser =  await this.authService.signUp(user.username, user.password, user.email);
+    session.user = newUser.id;
+    return newUser;
   }
 
-  @Get('/:id')
-  async findUser(@Param('id') id: string) {
-    const user = await this.userService.findOne(parseInt((id)));
-    if (!user) {
-      throw new NotFoundException(`User with id ${id} not found`);
-    }
+
+  @Post('/signin')
+  async signIn(@Body() body: CreateUserDto, @Session() session: any) {
+    const user =  await this.authService.signIn(body.email, body.password);
+    session.user = user.id;
     return user;
   }
 
-  @Post('/signin')
-  async signIn(@Body() user: CreateUserDto) {
-    return await this.authService.signIn(user.email, user.password);
+  @Post('/signout')
+  async signOut(@Session() session: any) {
+    session.user = null;
+  }
+
+  @Get('/me')
+  async me(@Session() session: any) {
+    if (!session.user) {
+      throw new NotFoundException('User not found');
+    }
+    return this.userService.findOne(session.user);
   }
 
 }
