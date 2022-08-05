@@ -13,7 +13,7 @@ export class AuthService {
     const userExist = await this.userService.find({email: email})
 
     if (userExist) {
-      throw new BadRequestException('Email already exist')
+      throw new BadRequestException('Email already exists')
     }
 
     const salt = randomBytes(8).toString('hex');
