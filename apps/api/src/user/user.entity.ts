@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, Unique} from 'typeorm';
-import { IsEmail, Length, IsDate } from 'class-validator';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm';
+import { IsEmail, Length } from 'class-validator';
+import { Fight } from '../fights/fight.entity';
 
 
 @Entity()
@@ -26,5 +27,8 @@ export class User {
   @Column()
   @CreateDateColumn()
   created: Date
+
+  @OneToMany(() => Fight, fight => fight.user)
+  fights: Fight[];
 }
 
