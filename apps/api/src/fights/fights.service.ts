@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../user/user.entity';
@@ -12,6 +12,17 @@ export class FightsService {
   create(fightDto: CreateFightDto, user: User) {
     const fight = this.repo.create(fightDto);
     fight.user = user;
+    return this.repo.save(fight);
+  }
+  
+  async changeApproval(id: string, approved: boolean) {
+    const fight = await this.repo.findOneBy({id});
+
+    if (!fight) {
+      throw new NotFoundException('Fight not found');
+    }
+
+    fight.approved = approved;
     return this.repo.save(fight);
   }
 }

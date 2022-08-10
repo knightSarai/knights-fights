@@ -3,11 +3,13 @@ import { Expose, Transform } from 'class-transformer';
 export class FightDto {
 
     @Expose()
-    @Transform(value => value.toString())
     id: number;
     
     @Expose()
     isActive: boolean;
+
+    @Expose()
+    approved: boolean;
     
     @Expose()
     created: Date;

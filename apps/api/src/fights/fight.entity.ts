@@ -5,11 +5,14 @@ import { User } from '../user/user.entity';
 @Entity()
 export class Fight {
   @PrimaryGeneratedColumn()
-  id: number;
+  id: string;
 
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({ default: false})
+  approved: boolean;
 
   @Column()
   @CreateDateColumn()

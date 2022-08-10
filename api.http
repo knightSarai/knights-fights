@@ -28,3 +28,24 @@ content-type: application/json
  
 ### Get User
 GET http://localhost:3333/api/auth/me
+
+### Create fight
+POST http://localhost:3333/api/fights
+content-type: application/json
+
+{
+    "age": 27,
+    "wins":  12,
+    "losses": 5,
+    "draws": 1,
+    "rounds": 3,
+    "price": 500
+}
+
+### Approve Fight
+PATCH  http://localhost:3333/api/fights/5
+content-type: application/json
+
+{
+    "approved": true
+}
