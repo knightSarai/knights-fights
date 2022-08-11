@@ -7,7 +7,6 @@ export class Fight {
   @PrimaryGeneratedColumn()
   id: string;
 
-
   @Column({ default: true })
   isActive: boolean;
 
