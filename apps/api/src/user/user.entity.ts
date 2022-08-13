@@ -17,6 +17,9 @@ export class User {
   @IsEmail()
   email: string;
 
+  @Column({ default: true})
+  admin: boolean;
+
   @Column()
   @Length(8)
   password: string;
