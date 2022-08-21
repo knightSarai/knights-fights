@@ -26,7 +26,7 @@ export class FightsController {
 
   @Get('')
   GetEstimateDto(@Query() query: GetEstimateDto) {
-    return query;
+    return this.fightsService.getEstimate(query);
   }
   
   
