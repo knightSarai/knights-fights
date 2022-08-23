@@ -3,6 +3,8 @@ import {
   TypeOrmModuleAsyncOptions,
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
+import { Fight } from '../fights/fight.entity';
+import { User } from '../user/user.entity';
 
 
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
@@ -19,17 +21,8 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
           ...dbConfig,
           type: 'sqlite',
           database: config.get<string>('DB_NAME'),
-          entities: [__dirname + '**/*.entity.{js,ts}'],
-          //migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
-          /* cli: { */
-          /*   migrationsDir: __dirname + '/../database/migrations', */
-          /* }, */
-          //
-          //entities: [User, Fight],
-          //entities: ['**/*.entity.ts'],
-          extra: {
-            charset: 'utf8mb4_unicode_ci',
-          },
+          entities: [User, Fight],
+          synchronize: true,
           logging: true,
         }
         break;
@@ -51,24 +44,4 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
 
     return dbConfig;
   },
-};
-
-export const typeOrmConfig: TypeOrmModuleOptions = {
-  type: 'mysql',
-  host: process.env.DB_HOST,
-  port: parseInt(process.env.DB_PORT, 10),
-  username: process.env.DB_USERNAME,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  entities: [__dirname + '/../**/*.entity.{js,ts}'],
-  migrations: [__dirname + '/../database/migrations/*{.ts,.js}'],
-  
-  cli: {
-    migrationsDir: __dirname + '/../database/migrations',
-  },
-  extra: {
-    charset: 'utf8mb4_unicode_ci',
-  },
-  synchronize: false,
-  logging: true,
 };
