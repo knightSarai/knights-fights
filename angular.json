@@ -5,6 +5,7 @@
     "api": "apps/api",
     "api-interfaces": "libs/api-interfaces",
     "knights-fights": "apps/knights-fights",
-    "knights-fights-e2e": "apps/knights-fights-e2e"
+    "knights-fights-e2e": "apps/knights-fights-e2e",
+    "prisma": "libs/prisma"
   }
 }

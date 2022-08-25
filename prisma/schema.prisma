@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model fight {
+  id       Int      @id @default(autoincrement())
+  isActive Boolean  @default(true)
+  approved Boolean  @default(false)
+  created  DateTime @default(now())
+  age      Int
+  wins     Int
+  losses   Int
+  draws    Int
+  rounds   Int
+  price    Int
+  userId   Int?
+  user     user?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model user {
+  id       Int      @id @default(autoincrement())
+  username String
+  email    String   @unique(map: "sqlite_autoindex_user_1")
+  admin    Boolean  @default(true)
+  password String
+  isActive Boolean  @default(true)
+  created  DateTime @default(now())
+  fight    fight[]
+}

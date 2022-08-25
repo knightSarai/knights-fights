@@ -6,11 +6,13 @@ import { UserDto } from './dtos/user.dto';
 import { AuthService } from './auth/auth.service';
 import { User } from './user.entity';
 import { CurrentUser } from './decorators/user.decorator';
+import { PrismaService } from '@knights-fights/prisma'
+
 
 @Controller('auth')
 @Serialize<UserDto>(UserDto)
 export class UserController {
-  constructor(private authService: AuthService) {}
+  constructor(private prisma: PrismaService, private authService: AuthService) {}
   @Post('/signup')
   async signUp(@Body() user: CreateUserDto, @Session() session: any) {
     const newUser =  await this.authService.signUp(user.username, user.password, user.email);
@@ -21,6 +23,7 @@ export class UserController {
 
   @Post('/signin')
   async signIn(@Body() body: CreateUserDto, @Session() session: any) {
+    console.log(this.prisma)
     const user =  await this.authService.signIn(body.email, body.password);
     session.userId = user.id;
     return user;

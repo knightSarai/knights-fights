@@ -60,6 +60,13 @@
         "command": "env-cmd -f apps/api/.env.development nx serve api",
         "envFile": "apps/api/.env.development"
       }
+    },
+    "prisma": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "env-cmd -f apps/api/.env.development npx prisma",
+        "envFile": "apps/api/.env.development"
+      }
     }
   },
   "tags": []
