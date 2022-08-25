@@ -49,7 +49,16 @@
       "outputs": ["coverage/apps/api"],
       "options": {
         "jestConfig": "apps/api/jest.config.ts",
+        "command": "env-cmd -f apps/api/.test.env",
+        "envFile": "apps/api/.test.env",
         "passWithNoTests": true
+      }
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "env-cmd -f apps/api/.env.development nx serve api",
+        "envFile": "apps/api/.env.development"
       }
     }
   },
