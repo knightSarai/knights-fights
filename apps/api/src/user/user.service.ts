@@ -18,15 +18,4 @@ export class UserService {
   create(data: Prisma.userCreateInput) {
     return this.prisma.user.create({data});
   }
-
-  findOne(id: number) {
-    if (!id) {
-      return null;
-    }
-    return this.repo.findOneBy({id});
-  }
-
-  find(attr: Partial<User>) {
-    return this.repo.findOneBy(attr);
-  }
 }
