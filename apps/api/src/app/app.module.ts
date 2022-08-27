@@ -1,14 +1,12 @@
 import { MiddlewareConsumer, Module, ValidationPipe  } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { FightsModule } from '../fights/fights.module';
 import { UserModule } from '../user/user.module';
 import { PrismaModule, PrismaService } from '@knights-fights/prisma';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { typeOrmAsyncConfig } from '../config/typeorm.config';
 
 const  cookieSession = require('cookie-session');
 
@@ -20,7 +18,6 @@ const  cookieSession = require('cookie-session');
       isGlobal: true,
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
-    TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     FightsModule,
     UserModule
   ],

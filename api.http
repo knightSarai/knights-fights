@@ -4,7 +4,7 @@ content-type: application/json
 
 {
     "username": "knight",
-    "email": "knight.sarai.dev2@gmail.com",
+    "email": "knight.sarai.dev@gmail.com",
     "password": "1234455."
 }
 
@@ -13,7 +13,7 @@ POST http://localhost:3333/api/auth/signin
 content-type: application/json
 
 {
-    "email": "knight.sarai.dev2@gmail.com",
+    "email": "knight.sarai.dev@gmail.com",
     "password": "1234455."
 }
 
@@ -47,7 +47,7 @@ content-type: application/json
 }
 
 ### Approve Fight
-PATCH  http://localhost:3333/api/fights/8
+PATCH  http://localhost:3333/api/fights/8888
 content-type: application/json
 
 {
@@ -56,6 +56,6 @@ content-type: application/json
 
 
 ### Get estimate
-GET http://localhost:3333/api/fights/?age=28&wins=30&losses=3&draws=1&rounds=3
+GET http://localhost:3333/api/fights/?age=30&wins=30&losses=3&draws=1&rounds=3
 
 

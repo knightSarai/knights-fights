@@ -1,33 +1,40 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { User } from '../user/user.entity';
-import { CreateFightDto } from './dtos/create-fight.dto';
 import { GetEstimateDto } from './dtos/get-estimate.dto';
-import { Fight } from './fight.entity';
+
+import { PrismaService } from '@knights-fights/prisma'
+import { fight as PrismaFight, Prisma} from '@prisma/client'
 
 @Injectable()
 export class FightsService {
-  constructor(@InjectRepository(Fight) private repo: Repository<Fight>) {}
+  constructor(private prisma: PrismaService) {}
 
-  create(fightDto: CreateFightDto, user: User) {
-    const fight = this.repo.create(fightDto);
-    fight.user = user;
-    return this.repo.save(fight);
+  fight(
+    fightWhereUniqueInput: Prisma.fightWhereUniqueInput,
+  ): Promise<PrismaFight | null> {
+    return this.prisma.fight.findUnique({where: fightWhereUniqueInput});
   }
+
+  create(data: Prisma.fightCreateInput) {
+    return this.prisma.fight.create({data});
+  }
+
   
-  async changeApproval(id: string, approved: boolean) {
-    const fight = await this.repo.findOneBy({id});
-
-    if (!fight) {
-      throw new NotFoundException('Fight not found');
+  async changeApproval(id: number, approved: boolean) {
+    try{
+      return await this.prisma.fight.update({
+        where: { id },
+        data: { approved },
+      })
+    }catch(error){
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2025') {
+           throw new NotFoundException('Fight not found'); 
+        }
+      }
     }
-
-    fight.approved = approved;
-    return this.repo.save(fight);
   }
 
-  getEstimate({rounds, age, wins, losses, draws}: GetEstimateDto) {
+  async getEstimate({rounds, age, wins, losses, draws}: GetEstimateDto) {
     //Estimate Process
     /* Find fights for the same rounds */
     /* Age is between 3  years */
@@ -38,18 +45,19 @@ export class FightsService {
     * draws from lowest to highest
     * */
 
-    return this.repo.createQueryBuilder()
-      .select('ROUND(AVG(price)) ', 'price')
-      .where('rounds = :rounds', { rounds })
-      .andWhere('age - :age BETWEEN -3 AND 3', { age })
-      .andWhere('approved IS TRUE')
-      .orderBy({
-        'ABS(wins - :wins)': 'ASC',
-        'ABS(losses - :losses)': 'DESC',
-        'ABS(draws - :draws)': 'DESC',
-      })
-      .setParameters({ wins, losses, draws })
-      .limit(3)
-      .getRawOne();
+     const aggregatedPrice = await this.prisma.$queryRaw<PrismaFight>`
+      SELECT ROUND(AVG(price)) AS price
+      FROM fight
+      WHERE rounds = ${rounds}
+      AND age - ${age} BETWEEN -3 AND 3
+      AND approved IS true
+      ORDER BY
+        ABS(wins - ${wins}) ASC,
+        ABS(losses - ${losses}) DESC,
+        ABS(draws - ${draws}) DESC
+      LIMIT 3;
+    `
+
+    return aggregatedPrice[0];
   }
 }

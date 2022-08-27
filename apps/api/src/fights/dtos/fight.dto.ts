@@ -33,7 +33,6 @@ export class FightDto {
     price: number;
     
     @Expose()
-    @Transform(({obj}) => obj.user.id)
     userId: number;
   
 }

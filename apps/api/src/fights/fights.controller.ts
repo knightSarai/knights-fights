@@ -11,7 +11,7 @@ import {
 import { AuthGuard } from '../app/guards/auth.guard';
 import { Serialize } from '../app/interceptors/serialize.interceptor';
 import { CurrentUser } from '../user/decorators/user.decorator';
-import { User } from '../user/user.entity';
+import { user as User} from '@prisma/client'
 import { FightsService } from './fights.service';
 import { ApproveFightDto } from './dtos/approve-fight.dto';
 import { CreateFightDto } from './dtos/create-fight.dto';
@@ -33,13 +33,20 @@ export class FightsController {
   @Post()
   @UseGuards(AuthGuard)
   @Serialize(FightDto)
-  createFight(@Body() fight: CreateFightDto, @CurrentUser() user: User) {
-    return this.fightsService.create(fight, user);
+  async createFight(@Body() fight: CreateFightDto, @CurrentUser() user: User) {
+    return await this.fightsService.create({
+      ...fight,
+      user: {
+        connect: {
+          id: user.id
+        }
+      }
+    });
   }
 
   @Patch('/:id')
   @UseGuards(AuthGuard)
   async approveFight(@Param('id') id: string, @Body() fight: ApproveFightDto) {
-    return await this.fightsService.changeApproval(id, fight.approved);
+    return await this.fightsService.changeApproval(+id, fight.approved);
   }
 }
