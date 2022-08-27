@@ -10,7 +10,7 @@ export class AuthService {
   constructor(private userService: UserService) {}
 
   async signUp(username: string, password: string, email: string) {
-    const userExist = await this.userService.find({email: email})
+    const userExist = await this.userService.user({email})
 
     if (userExist) {
       throw new BadRequestException('Email already exists')
@@ -21,11 +21,11 @@ export class AuthService {
     const hashedAndSaltedPassword = salt + '.' + hashedPassword.toString('hex');
 
 
-    return this.userService.create(username, email, hashedAndSaltedPassword);
+    return this.userService.create({username, email, password:hashedAndSaltedPassword});
   }
 
   async signIn(email: string, password: string) {
-    const user = await this.userService.find({email});
+    const user = await this.userService.user({email});
 
     if (!user) {
       throw new BadRequestException('Invalid credentials');

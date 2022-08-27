@@ -15,9 +15,8 @@ export class UserService {
     return this.prisma.user.findUnique({where: userWhereUniqueInput});
   }
 
-  create(username: string, email: string, password: string) {
-    const user = this.repo.create({username, email, password });
-    return this.repo.save(user);
+  create(data: Prisma.userCreateInput) {
+    return this.prisma.user.create({data});
   }
 
   findOne(id: number) {
