@@ -2,6 +2,7 @@
 #
 *.env
 .env.development
+.test.env
 .env.test
 
 # compiled output
@@ -45,5 +46,6 @@ Thumbs.db
 .angular
 
 *.db
+dev.db-journal
 
 .vscode
