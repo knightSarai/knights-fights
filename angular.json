@@ -4,8 +4,10 @@
   "projects": {
     "api": "apps/api",
     "api-interfaces": "libs/api-interfaces",
+    "commands": "apps/commands",
     "knights-fights": "apps/knights-fights",
     "knights-fights-e2e": "apps/knights-fights-e2e",
-    "prisma": "libs/prisma"
+    "prisma": "libs/prisma",
+    "superuser": "libs/superuser"
   }
 }

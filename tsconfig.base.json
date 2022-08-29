@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@knights-fights/api-interfaces": ["libs/api-interfaces/src/index.ts"],
-      "@knights-fights/prisma": ["libs/prisma/src/index.ts"]
+      "@knights-fights/prisma": ["libs/prisma/src/index.ts"],
+      "@knights-fights/superuser": ["libs/superuser/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

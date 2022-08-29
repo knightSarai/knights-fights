@@ -17,9 +17,11 @@ import { ApproveFightDto } from './dtos/approve-fight.dto';
 import { CreateFightDto } from './dtos/create-fight.dto';
 import { FightDto } from './dtos/fight.dto';
 import { GetEstimateDto } from './dtos/get-estimate.dto';
+import { AdminGuard } from '../app/guards/admin.gaurd';
 
 
 
+@UseGuards(AuthGuard)
 @Controller('fights')
 export class FightsController {
   constructor(private fightsService: FightsService) {}
@@ -31,7 +33,6 @@ export class FightsController {
   
   
   @Post()
-  @UseGuards(AuthGuard)
   @Serialize(FightDto)
   async createFight(@Body() fight: CreateFightDto, @CurrentUser() user: User) {
     return await this.fightsService.create({
@@ -44,8 +45,8 @@ export class FightsController {
     });
   }
 
+  @UseGuards(AdminGuard)
   @Patch('/:id')
-  @UseGuards(AuthGuard)
   async approveFight(@Param('id') id: string, @Body() fight: ApproveFightDto) {
     return await this.fightsService.changeApproval(+id, fight.approved);
   }
