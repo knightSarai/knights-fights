@@ -23,7 +23,7 @@ DATABASE_URL=<should-match-.env.development>
 
 ```
 npm install
-nx run api:prisma migrate
+nx run api:prisma migrate dev
 nx build commands
 npm run create-superuser <username> <email> <password>
 nx run api:dev
