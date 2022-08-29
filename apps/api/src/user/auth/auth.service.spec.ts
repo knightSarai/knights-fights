@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthService  } from './auth.service';
 import { UserService } from '../user.service';
-import { User } from '../user.entity';
+import { user as User, Prisma } from '@prisma/client'
 import { BadRequestException } from '@nestjs/common';
 
 
@@ -11,8 +11,8 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     mockUserService= {
-      find: () => Promise.resolve(null),
-      create: (username: string, email: string, password: string) => Promise.resolve({ id: 1, username, email, password } as User),
+      user: () => Promise.resolve(null),
+      create: (data: Prisma.userCreateInput) => Promise.resolve({ id: 1, username: data.username, email: data.email} as User),
     }
     const module: TestingModule = await Test.createTestingModule({
       providers: [
