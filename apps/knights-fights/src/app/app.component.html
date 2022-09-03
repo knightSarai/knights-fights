@@ -1,9 +1,5 @@
-<div style="text-align: center">
-  <h1>Welcome to knights-fights!</h1>
-  <img
-    width="450"
-    src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png"
-    alt="Nx - Smart, Fast and Extensible Build System"
-  />
+<knights-fights-header></knights-fights-header>
+<div class="container-xxl mt-4">
+  <router-outlet></router-outlet>
 </div>
-<div>Message: {{ hello$ | async | json }}</div>
+

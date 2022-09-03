@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="#">Navbar</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+      <ul class="navbar-nav justify-content-end flex-grow-1">
+        <li class="nav-item">
+          <a 
+            class="nav-link" 
+            routerLinkActive="active" 
+            aria-current="page" 
+            routerLink="/"
+            [routerLinkActiveOptions]="{exact: true}"
+          >
+            Get Estimate
+          </a>
+        </li>
+        <li class="nav-item">
+          <a 
+            class="nav-link"
+            routerLinkActive="active" 
+            routerLink="/fight"
+          >
+            Post Fight
+          </a>
+        </li>
+        <li class="nav-item">
+          <a 
+            class="nav-link"
+            routerLinkActive="active" 
+            href="#"
+          >
+            Logout
+          </a>
+        </li>
+        <li class="nav-item">
+          <a 
+            class="nav-link" 
+            routerLinkActive="active" 
+            routerLink="/login"
+          >
+            Login
+          </a>
+        </li>
+        <li class="nav-item">
+          <a 
+            class="nav-link" 
+            routerLinkActive="active" 
+            routerLink="/register"
+          >
+            Register
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
