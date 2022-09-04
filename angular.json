@@ -8,6 +8,7 @@
     "knights-fights": "apps/knights-fights",
     "knights-fights-e2e": "apps/knights-fights-e2e",
     "prisma": "libs/prisma",
-    "superuser": "libs/superuser"
+    "superuser": "libs/superuser",
+    "ui": "libs/ui"
   }
 }

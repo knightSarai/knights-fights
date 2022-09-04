@@ -13,11 +13,13 @@
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "strictPropertyInitialization": false,
     "baseUrl": ".",
     "paths": {
       "@knights-fights/api-interfaces": ["libs/api-interfaces/src/index.ts"],
       "@knights-fights/prisma": ["libs/prisma/src/index.ts"],
-      "@knights-fights/superuser": ["libs/superuser/src/index.ts"]
+      "@knights-fights/superuser": ["libs/superuser/src/index.ts"],
+      "@knights-fights/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

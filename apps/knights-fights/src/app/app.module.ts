@@ -11,6 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { EstimateComponent } from './estimate/estimate.component';
 import { FightComponent } from './fight/fight.component';
+import { UiModule } from '@knights-fights/ui';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FightComponent } from './fight/fight.component';
     BrowserModule,
     HttpClientModule,
     RoutingModule,
-    FormsModule
+    FormsModule,
+    UiModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

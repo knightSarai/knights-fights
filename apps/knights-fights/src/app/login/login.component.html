@@ -1,7 +1,9 @@
+<knights-fights-spinner [loading]="loading"></knights-fights-spinner>
 <div class="app-form">
   <form 
     #loginForm="ngForm"
     (ngSubmit)="onSubmit(loginForm)"
+    *ngIf="!loading"
   >
     <div class="mb-3">
       <label 
