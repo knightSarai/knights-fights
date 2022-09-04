@@ -9,16 +9,4 @@ import { NotifyService } from '@knights-fights/ui';
 export class AppComponent {
   constructor(private notify: NotifyService) {}
 
-  appNotify() {
-    setTimeout(() => {
-      this.notify.success('Yay!');
-    }, 10);
-
-    setTimeout(() => {
-      this.notify.warning('Hey...');
-    }, 1000);
-
-    setTimeout(() => {
-      this.notify.error('No way!');
-    }, 1500);}
 }

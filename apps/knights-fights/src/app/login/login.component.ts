@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '@knights-fights/api-interfaces';
+import { NotifyService } from '@knights-fights/ui';
 import { catchError, throwError } from 'rxjs';
 
 @Component({
@@ -11,7 +12,7 @@ import { catchError, throwError } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   loading = false;
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private notify: NotifyService) {}
 
   ngOnInit(): void {}
 
@@ -20,15 +21,16 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.http
       .post<User>('api/auth/signin', form.value)
-      .pipe(catchError(err => {
-        console.log(err)
-        return throwError(() => new Error(err))
+      .pipe(catchError((err: HttpErrorResponse) => {
+        this.loading = false;
+        this.notify.error(err.error.message);
+        return throwError(() => new Error(err.error.message))
       }))
       .subscribe(user => {
         this.loading = false;
+        form.reset();
         console.log(user)
       });
-    form.reset();
   }
 
 }
