@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from '@knights-fights/api-interfaces';
+import { AuthService } from '@knights-fights/auth';
 import { NotifyService } from '@knights-fights/ui';
 import { catchError, throwError } from 'rxjs';
 
@@ -12,15 +13,18 @@ import { catchError, throwError } from 'rxjs';
 })
 export class LoginComponent implements OnInit {
   loading = false;
-  constructor(private http: HttpClient, private notify: NotifyService) {}
+  constructor(
+    private http: HttpClient,
+    private notify: NotifyService,
+    private auth: AuthService
+  ) {}
 
   ngOnInit(): void {}
 
   onSubmit(form: NgForm) {
     if (!form.valid) return;
     this.loading = true;
-    this.http
-      .post<User>('api/auth/signin', form.value)
+    this.auth.login(form.value.email, form.value.password)
       .pipe(catchError((err: HttpErrorResponse) => {
         this.loading = false;
         this.notify.error(err.error.message);
