@@ -1,6 +1,14 @@
-# KnightsFights
+## KnightsFights
+Fighters can get an estimate for a fight price based on thier fighting resume comparing to other fighters.
+## Tech Stack
+![Nest](https://img.shields.io/badge/-Nest-black?style=flat-square&logo=nestjs)
+![Angular](https://img.shields.io/badge/-Angular-black?style=flat-square&logo=angular)
+![Prisma](https://img.shields.io/badge/-Prisma-black?style=flat-square&logo=prisma)
+![Nx](https://img.shields.io/badge/-Nx-black?style=flat-square&logo=nx)
 
-After you cloned the app
+
+## Installation Guide
+After you cloned the repo
 
 Add .env.development inside apps/api directory
 
